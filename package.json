@@ -1,0 +1,19 @@
+{
+  "name": "ergasia2",
+  "version": "1.0.0",
+  "description": "restful API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "restful",
+    "api"
+  ],
+  "author": "Marilena Hadjitheodoulou",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sqlite3": "^5.0.1"
+  }
+}
