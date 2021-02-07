@@ -3,9 +3,11 @@ const db = new sqlite3.Database('movies.sqlite');
 
 const express = require('express')
 const app = express()
- 
+var cors = require('cors');
+app.use(cors());
+
 app.get('/', async (req, res)=>{
-    const q = `select movieId,title,genres from movies`;
+    const q = `select * from movies`;
     try{
         const results = await query(q);
         res.send(results);
