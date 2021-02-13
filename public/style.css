@@ -1,21 +1,26 @@
+@import 'https://bootswatch.com/4/lux/bootstrap.min.css';
+
 body{
-    background-color: #cce6ff;
+    background-color: #d3d8dd;
    }
    header{
     text-align: center;
     height: 100px;
     padding-top: 1px;
-    background-color: #3399ff;
-    color: #FFFFFF;
+    background-color: #161d24;
+    color: #d3d8dd;
     font-size: x-large;
    }
    h3{
     margin-top: 2px;
     text-align: center;
-    background-color: #80bfff;
+    background-color: #637d99;
    }
    form{
     width: 45%;
+    height: 100px;
+    text-align: center;
     display: inline-block;
     margin: 20px;
    }
+   
