@@ -11,6 +11,8 @@ app.use(express.static('./public'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+var LocalStorage = require('node-localstorage').LocalStorage,
+localStorage = new LocalStorage('./scratch');
 
 app.get('/movies/:movieId', (req, res) => {
     const q = `select * from movies where movieId = ${req.params.movieId}`;
@@ -41,8 +43,7 @@ app.post('/view', (req, res) => {
     const q = `select * from movies where title LIKE '%${req.body.keyword}%' `;
     db.all(q, (err, rows) => {
         if (err) {
-            res.json({ 'message': 'failure', 'code': err });
-            console.error(err);
+            res.json({ 'message': 'failure', 'code': err });        
             return;
         }
         res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
@@ -50,11 +51,36 @@ app.post('/view', (req, res) => {
     });
 });
 
+let movies = []
+app.post('/rate', (req, res) => {
+    let movie = {
+        movie : req.body.title,
+        rating : req.body.rating
+    }
+    movies.push(movie);
+    localStorage.setItem('MyRatingMovieList', JSON.stringify(movies));
+});
+
+/*app.post('/ratingpermovie', (req, res) => {
+    var keyword = req.body.keyword;
+    const q = `select * from ratings where movieId = ${req.body.keyword} `;
+    db.all(q, (err, rows) => {
+        if (err) {
+            res.json({ 'message': 'failure', 'code': err });
+            console.error(err);
+            return;
+        }
+        res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
+
+    });
+}); */
+
 app.listen(8080, function () {
     console.log("App listening on port: 8080");
 });
 
 var request = require('request');
+const { response } = require('express');
 
 function query(q) {
     return new Promise(function (resolve, reject) {
